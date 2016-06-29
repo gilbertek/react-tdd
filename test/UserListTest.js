@@ -1,6 +1,11 @@
 import React from 'react';
 import test from 'tape';
-import { shallow, render } from 'enzyme';
+
+import { shallow, render, mount } from 'enzyme';
+import { spy } from 'sinon';
+import { jsdom } from 'jsdom';
+
+global.window = global.document = jsdom();
 
 import UserList from '../src/UserList';
 
@@ -34,6 +39,17 @@ test('<UserList /> can filter users', function (t) {
   wrapper.setState({ filter: 'e' });
   t.equal(wrapper.state('filter'), 'e');
   t.equal(wrapper.find('User').length, 1);
+
+  t.end();
+});
+
+test('<UserList /> call shouldComponentUpdate', function (t) {
+  spy(UserList.prototype, 'shouldComponentUpdate');
+  var wrapper = mount(<UserList users={userData}/>);
+  t.equal(UserList.prototype.shouldComponentUpdate.callCount, 0, 'no calls yet');
+
+  wrapper.setState({ filter: 'e' });
+  t.equal(UserList.prototype.shouldComponentUpdate.callCount, 1, 'called state change');
 
   t.end();
 });
