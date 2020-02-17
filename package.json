@@ -22,7 +22,7 @@
     "babel-register": "^6.7.2",
     "enzyme": "^3.10.0",
     "faucet": "0.0.1",
-    "jsdom": "^15.1.1",
+    "jsdom": "^16.2.0",
     "react-addons-test-utils": "^15.0.1",
     "sinon": "^7.3.2",
     "tape": "^4.5.1"
